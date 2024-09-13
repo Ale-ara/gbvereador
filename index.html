@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[GB] - Questionário </title>
-    <link rel="icon" href="https://i.imgur.com/TvnWvdF.gif">
+    <title>[VG] - Questionário </title>
+    <link rel="icon" href="https://i.imgur.com/NYWo4cP.png">
     <link rel="stylesheet" href="css.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,7 +14,7 @@
         html {
             height: 100%;
             background: #f1f1f1;
-            background-image: url('https://i.imgur.com/88bB7rl.png');
+            background-image: url('https://i.imgur.com/R3lWbPj.png');
             background-position: center center;
             background-repeat: repeat;
             background-attachment: scroll;
@@ -58,7 +57,6 @@
             margin-top: 50px;
         }
 
-        /* Estilo para o overlay de carregamento */
         #loadingOverlay {
             position: fixed;
             top: 0;
@@ -95,6 +93,7 @@
         }
     
         input[type="text"],
+        input[type="tel"],
         select,
         input[type="number"],
         textarea {
@@ -210,63 +209,69 @@
 <body onload="hideLoadingOverlay()">
     <div id="loadingOverlay">Carregando...</div>
     <div class="container">
-        <h1>Questionário <img src="https://i.imgur.com/TvnWvdF.gif" alt="Beleza" class="icon" /></h1>
+        <h1>Questionário <img src="https://i.imgur.com/TvnWvdF.gif" alt="Questionário" class="icon" /></h1>
         <form id="beautyForm">
-            <label for="nomeCliente">Nome:</label>
-            <input type="text" id="nomeCliente" name="nomeCliente" required>
-
-            <label for="bairroCliente">Bairro:</label>
-            <input type="text" id="bairroCliente" name="bairroCliente" required>
-
-            <label for="ruaCliente">Rua:</label>
-            <input type="text" id="ruaCliente" name="ruaCliente" required>
-
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Insira o nome" required>
+        
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" required>
+        
+            <label for="rua">Rua:</label>
+            <input type="text" id="rua" name="rua" placeholder="Nome da rua" required>
+        
+            <label for="tel">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999">
+        
             <label for="localvoto">Você vota em Belford-Roxo?</label>
             <select id="localvoto" name="localvoto" required>
                 <option value="Sim">Sim</option>
                 <option value="Não">Não</option>
             </select>
-
-            <label for="numeroCliente">Qual é o seu candidato a vereador?</label>
-            <input type="text" id="numeroCliente" name="numeroCliente">
-
+        
+            <label for="vereador">Qual é o seu candidato a vereador?</label>
+            <input type="text" id="vereador" name="vereador" placeholder="Nome do vereador">
+        
+            <label for="prefeito">Qual é o seu candidato a prefeito?</label>
+            <input type="text" id="prefeito" name="prefeito"placeholder="Nome do prefeito">
+        
             <label for="comentarios">Comentários:</label>
-            <textarea id="comentarios" name="comentarios" rows="4"></textarea>
-
+            <textarea id="comentarios" name="comentarios" rows="4" placeholder="Opcional"></textarea>
+        
             <button type="submit" id="submitButton">Enviar</button>
         </form>
-    </div>
-
+        
+    
     <script>
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbyIBaXFaIYbuTqaKCEymz9_gOVxRPXduFb4aU5tqzMIytJb34ixjJBHOhmUOeLkHMAn/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxEKI-uMdor_Jm_mt7R93AnZvdoltSgijc0BRyGi6gfo9hIxVNF8MEPd8NNcGfP7S1Ubw/exec';
         let isSubmitting = false;
-
+    
         function hideLoadingOverlay() {
             const overlay = document.getElementById('loadingOverlay');
             if (overlay) {
                 overlay.style.display = 'none';
             }
         }
-
+    
         function handleFormSubmit(event) {
-            event.preventDefault(); 
-
+            event.preventDefault();
+    
             if (isSubmitting) {
-                return false; 
+                return false;
             }
-
+    
             isSubmitting = true;
-            
+    
             const form = event.target;
             const formData = new FormData(form);
-
+    
             fetch(scriptUrl, {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(result => {
-                console.log(result); 
+                console.log(result);
                 alert('Formulário enviado com sucesso!');
                 form.reset();
             })
@@ -275,16 +280,14 @@
                 alert('Houve um erro ao enviar o formulário.');
             })
             .finally(() => {
-                isSubmitting = false; 
+                isSubmitting = false;
                 hideLoadingOverlay();
             });
-
-            return false; 
+    
+            return false;
         }
-
+    
         document.getElementById('beautyForm').addEventListener('submit', handleFormSubmit);
     </script>
 </body>
-
-</body>
-</html>
+</html>    
